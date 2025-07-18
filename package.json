@@ -1,0 +1,32 @@
+{
+    "name": "chat-alloy",
+    "version": "1.0.0",
+    "description": "GOTH chat application.",
+    "homepage": "https://github.com/Sidney-Bernardin/Chat-Alloy#readme",
+    "bugs": {
+        "url": "https://github.com/Sidney-Bernardin/Chat-Alloy/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Sidney-Bernardin/Chat-Alloy.git"
+    },
+    "license": "ISC",
+    "author": "",
+    "type": "commonjs",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "devDependencies": {
+        "parcel": "^2.15.4"
+    },
+    "targets": {
+        "default": {
+            "distDir": "./tmp/dist",
+            "source": [
+                "web/**/*.ts",
+                "web/**/*.scss"
+            ]
+        }
+    }
+}
