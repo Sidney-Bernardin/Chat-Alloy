@@ -10,14 +10,16 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import "net/http"
 import "github.com/Sidney-Bernardin/Chat-Alloy/internal/web"
+import "github.com/Sidney-Bernardin/Chat-Alloy/internal/repos/redis"
+import "github.com/Sidney-Bernardin/Chat-Alloy/internal/repos/postgres"
 
 func Handler(svr *web.Server) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		svr.Respond(w, r, http.StatusOK, home())
+		svr.Respond(w, r, http.StatusOK, home(nil, nil))
 	})
 }
 
-func home() templ.Component {
+func home(session *redis.Session, user *postgres.User) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -38,7 +40,7 @@ func home() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<html><head><link rel=\"stylesheet\" href=\"/static/home.css\"><title>ChatAlloy</title><script src=\"/static/home.js\"></script></head><body><form><h2>Signup</h2><label for=\"username\">Username <input type=\"text\" id=\"username\" name=\"username\" placeholder=\"Username\"></label> <label for=\"password\">Password <input type=\"password\" id=\"password\" name=\"password\" placeholder=\"Password\"></label></form></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<html><head><link rel=\"stylesheet\" href=\"/static/home.css\"><title>ChatAlloy</title><script src=\"/static/home.js\"></script></head><body><form hx-post=\"/login/signup\"><h2>Signup</h2><label for=\"signupUsername\">Username <input type=\"text\" id=\"signupUsername\" name=\"username\" placeholder=\"Username\"></label> <label for=\"signupPassword\">Password <input type=\"password\" id=\"signupPassword\" name=\"password\" placeholder=\"Password\"></label> <input type=\"submit\" value=\"Signup\"></form><form hx-post=\"/login/signup\"><h2>Signin</h2><label for=\"signinUsername\">Username <input type=\"text\" id=\"signinUsername\" name=\"username\" placeholder=\"Username\"></label> <label for=\"signinPassword\">Password <input type=\"password\" id=\"signinPassword\" name=\"password\" placeholder=\"Password\"></label> <input type=\"submit\" value=\"Signin\"></form></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

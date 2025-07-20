@@ -1,0 +1,24 @@
+package users
+
+import (
+	"context"
+	"github.com/Sidney-Bernardin/Chat-Alloy/internal/web"
+	"github.com/pkg/errors"
+	"net/http"
+)
+
+func HandleSignup(svr *web.Server) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+		sessionID, err := svr.Service.Signup(r.Context(), r.FormValue("username"), r.FormValue("password"))
+		if err != nil {
+			svr.Err(w, r, errors.Wrap(err, "cannot signup"))
+			return
+		}
+
+		*r = *r.WithContext(context.WithValue(r.Context(), "session_id", sessionID))
+	})
+}
+
+templ foo() {
+}

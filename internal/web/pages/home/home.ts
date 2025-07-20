@@ -1,1 +1,1 @@
-import htmx from "htmx"
+import "htmx.org"

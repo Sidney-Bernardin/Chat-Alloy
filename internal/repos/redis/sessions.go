@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/Sidney-Bernardin/Chat-Alloy/internal"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
 	"github.com/redis/go-redis/v9"
@@ -22,7 +23,7 @@ func (repo *Repository) SetNewSession(ctx context.Context, userID uuid.UUID) (*S
 		session = &Session{
 			ID:        uuid.New(),
 			UserID:    userID,
-			CSRFToken: uuid.New().String(),
+			CSRFToken: internal.MustRandomString(10),
 		}
 		key = fmt.Sprintf("session:%s", session.ID)
 	)

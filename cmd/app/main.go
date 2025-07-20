@@ -15,6 +15,7 @@ import (
 	"github.com/Sidney-Bernardin/Chat-Alloy/internal/service"
 	"github.com/Sidney-Bernardin/Chat-Alloy/internal/web"
 	"github.com/Sidney-Bernardin/Chat-Alloy/internal/web/pages/home"
+	"github.com/Sidney-Bernardin/Chat-Alloy/internal/web/users"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 )
@@ -106,6 +107,7 @@ func startWebServer(ctx context.Context, svr *web.Server) error {
 	r := http.NewServeMux()
 	r.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("tmp/dist"))))
 	r.Handle("/", home.Handler(svr))
+	r.Handle("/signup", users.HandleSignup(svr))
 	svr.Handler = svr.MWLog(r)
 
 	return svr.ListenAndServe()

@@ -10,7 +10,8 @@ import (
 type Config struct {
 	ADDR string `required:"true"`
 
-	SESSION_DURATION time.Duration `required:"true"`
+	SESSION_DURATION      time.Duration `required:"true"`
+	SESSION_COOKIE_DOMAIN string        `required:"true"`
 
 	POSTGRES_URL string `required:"true"`
 	REDIS_ADDR   string `required:"true"`

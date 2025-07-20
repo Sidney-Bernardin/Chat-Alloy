@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"log/slog"
 
 	"github.com/Sidney-Bernardin/Chat-Alloy/internal"
@@ -14,4 +15,21 @@ type Service struct {
 
 	Postgres *postgres.Repository
 	Redis    *redis.Repository
+}
+
+type DomainError struct {
+	Type  DomainErrorType `json:"type"`
+	Msg   string          `json:"message,omitempty"`
+	Attrs map[string]any  `json:"attrs,omitempty"`
+}
+
+type DomainErrorType string
+
+var (
+	DomainErrorTypeInvalidPassword DomainErrorType = "invalid-password"
+	DomainErrorTypeUserNotFound    DomainErrorType = "user-not-found"
+)
+
+func (err *DomainError) Error() string {
+	return fmt.Sprintf("%s: %s", err.Type, err.Msg)
 }

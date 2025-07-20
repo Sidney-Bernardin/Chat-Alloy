@@ -2,14 +2,16 @@ package home
 
 import "net/http"
 import "github.com/Sidney-Bernardin/Chat-Alloy/internal/web"
+import "github.com/Sidney-Bernardin/Chat-Alloy/internal/repos/redis"
+import "github.com/Sidney-Bernardin/Chat-Alloy/internal/repos/postgres"
 
 func Handler(svr *web.Server) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		svr.Respond(w, r, http.StatusOK, home())
+		svr.Respond(w, r, http.StatusOK, home(nil, nil))
 	})
 }
 
-templ home() {
+templ home(session *redis.Session, user *postgres.User) {
 	<html>
 		<head>
 			<link rel="stylesheet" href="/static/home.css"/>
@@ -17,26 +19,49 @@ templ home() {
 			<script src="/static/home.js"></script>
 		</head>
 		<body>
-			<form>
+			<form hx-post="/login/signup">
 				<h2>Signup</h2>
-				<label for="username">
+				<label for="signupUsername">
 					Username
 					<input
 						type="text"
-						id="username"
+						id="signupUsername"
 						name="username"
 						placeholder="Username"
 					/>
 				</label>
-				<label for="password">
+				<label for="signupPassword">
 					Password
 					<input
 						type="password"
-						id="password"
+						id="signupPassword"
 						name="password"
 						placeholder="Password"
 					/>
 				</label>
+				<input type="submit" value="Signup"/>
+			</form>
+			<form hx-post="/login/signup">
+				<h2>Signin</h2>
+				<label for="signinUsername">
+					Username
+					<input
+						type="text"
+						id="signinUsername"
+						name="username"
+						placeholder="Username"
+					/>
+				</label>
+				<label for="signinPassword">
+					Password
+					<input
+						type="password"
+						id="signinPassword"
+						name="password"
+						placeholder="Password"
+					/>
+				</label>
+				<input type="submit" value="Signin"/>
 			</form>
 		</body>
 	</html>
