@@ -1,6 +1,8 @@
-package server
+package internal
 
 import (
+	"time"
+
 	"github.com/kelseyhightower/envconfig"
 	"github.com/pkg/errors"
 )
@@ -8,12 +10,15 @@ import (
 type Config struct {
 	ADDR string `required:"true"`
 
+	SESSION_DURATION time.Duration `required:"true"`
+
 	POSTGRES_URL string `required:"true"`
+	REDIS_ADDR   string `required:"true"`
 }
 
 func NewConfig() (*Config, error) {
 	var cfg Config
-	if err := envconfig.Process("SVR", &cfg); err != nil {
+	if err := envconfig.Process("APP", &cfg); err != nil {
 		return nil, errors.Wrap(err, "cannot process environment")
 	}
 	return &cfg, nil

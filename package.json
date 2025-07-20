@@ -18,14 +18,15 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "devDependencies": {
+        "@parcel/transformer-sass": "^2.15.4",
         "parcel": "^2.15.4"
     },
     "targets": {
         "default": {
             "distDir": "./tmp/dist",
             "source": [
-                "web/**/*.ts",
-                "web/**/*.scss"
+                "server/web/**/*.ts",
+                "server/web/**/*.scss"
             ]
         }
     }

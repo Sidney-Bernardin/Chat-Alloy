@@ -1,0 +1,43 @@
+package home
+
+import "net/http"
+import "github.com/Sidney-Bernardin/Chat-Alloy/internal/web"
+
+func Handler(svr *web.Server) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		svr.Respond(w, r, http.StatusOK, home())
+	})
+}
+
+templ home() {
+	<html>
+		<head>
+			<link rel="stylesheet" href="/static/home.css"/>
+			<title>ChatAlloy</title>
+			<script src="/static/home.js"></script>
+		</head>
+		<body>
+			<form>
+				<h2>Signup</h2>
+				<label for="username">
+					Username
+					<input
+						type="text"
+						id="username"
+						name="username"
+						placeholder="Username"
+					/>
+				</label>
+				<label for="password">
+					Password
+					<input
+						type="password"
+						id="password"
+						name="password"
+						placeholder="Password"
+					/>
+				</label>
+			</form>
+		</body>
+	</html>
+}

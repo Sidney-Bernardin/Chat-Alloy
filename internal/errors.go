@@ -1,4 +1,4 @@
-package server
+package internal
 
 type DomainError struct {
 	Type  string         `json:"type"`

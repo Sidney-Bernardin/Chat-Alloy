@@ -6,5 +6,5 @@ CREATE TABLE IF NOT EXISTS users (
 
     username text,
     pw_hash bytea,
-    pw_salt bytea,
+    pw_salt bytea
 );
